@@ -1,0 +1,20 @@
+name: build-push
+run-name: build and push docker image
+# trigger
+on:
+  workflow_dispatch:
+jobs:
+  build-push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: cloning repository
+        uses: actions/checkout@v6
+        with:
+          username: jkliy
+          password: ${{ secrets.Docker_creds }}
+      - name: build and push
+        uses: Docker/build-push-action@v7
+        with:
+          context:
+          push: true
+          tags: jkliy/nginex-app:v1
